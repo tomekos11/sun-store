@@ -35,6 +35,12 @@ export default defineNuxtConfig({
     },
   },
 
+  experimental: {
+    // with ISR Nuxt would fetch _payload.json before every filter navigation, which delays
+    // the checkbox/URL update. The page loads its data with useFetch anyway.
+    payloadExtraction: false,
+  },
+
   compatibilityDate: '2026-10-01',
 
   nitro: {

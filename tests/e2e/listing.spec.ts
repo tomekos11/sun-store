@@ -77,6 +77,22 @@ test('a search is a single history entry and stays in sync with the input', asyn
   await expect(page.getByTestId('result-count')).toHaveText('1–24 of 50 products')
 })
 
+test('checkbox and URL update right away, without waiting for the data', async ({ page }) => {
+  await open(page, '/?category=battery')
+  // slow data on purpose (API and Nuxt payload), the UI must not wait for it
+  await page.route(url => /\/api\/products|_payload\.json/.test(url.pathname), async (route) => {
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    await route.continue()
+  })
+
+  const checkbox = page.getByRole('checkbox', { name: /^AuraPower/ })
+  await checkbox.click()
+  await expect(checkbox).toBeChecked({ timeout: 500 })
+  await expect(page).toHaveURL(/manufacturer=aurapower/, { timeout: 500 })
+
+  await expect(page.getByTestId('result-count')).toHaveText('5 products')
+})
+
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false })
 

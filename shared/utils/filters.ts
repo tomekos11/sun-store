@@ -5,6 +5,9 @@ import type { NumericRange, SpecKind } from '../types/catalog'
 
 export const PAGE_SIZE = 24
 
+// every query param the listing understands (also used as the CDN cache key in nuxt.config)
+export const QUERY_KEYS = ['q', 'category', 'manufacturer', 'price', 'capacity', 'power', 'sort', 'page']
+
 export const SORT_OPTIONS = [
   'relevance',
   'price-asc',

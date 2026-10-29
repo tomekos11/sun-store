@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { QUERY_KEYS } from './shared/utils/filters'
+
 export default defineNuxtConfig({
   modules: ['@nuxt/ui', '@nuxt/eslint'],
 
@@ -27,6 +29,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    '/': { isr: { expiration: false, allowQuery: QUERY_KEYS } },
     '/api/products': {
       headers: { 'cache-control': 'public, max-age=60, s-maxage=600, stale-while-revalidate=86400' },
     },
@@ -36,6 +39,8 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
+    // closer to european customers than the default iad1
+    vercel: { functions: { regions: ['fra1'] } },
   },
 
   typescript: {

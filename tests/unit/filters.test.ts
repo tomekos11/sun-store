@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { countActiveFilters, emptyFilters, parseFilters, relevantSpecs, serializeFilters } from '../../shared/utils/filters'
+import { QUERY_KEYS, countActiveFilters, emptyFilters, parseFilters, relevantSpecs, serializeFilters } from '../../shared/utils/filters'
 
 describe('parseFilters', () => {
   it('returns defaults for an empty query', () => {
@@ -67,6 +67,11 @@ describe('serializeFilters', () => {
     const a = serializeFilters(parseFilters({ manufacturer: 'b,a', category: 'solar-panel,battery' }))
     const b = serializeFilters(parseFilters({ category: 'battery,solar-panel', manufacturer: 'a,b' }))
     expect(JSON.stringify(a)).toBe(JSON.stringify(b))
+  })
+
+  it('only produces keys listed in QUERY_KEYS (used as the CDN cache key)', () => {
+    const all = parseFilters({ q: 'x', category: 'battery', manufacturer: 'a', price: '1-2', capacity: '1-2', power: '1-2', sort: 'price-asc', page: '2' })
+    expect(Object.keys(serializeFilters(all))).toEqual(QUERY_KEYS)
   })
 
   it('cleans floating point noise from slider steps', () => {

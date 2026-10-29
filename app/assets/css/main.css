@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: 'Public Sans', sans-serif;
+}
+
+/*
+ * amber-500 on white fails WCAG AA for text and solid buttons (≈2.1:1).
+ * Use a darker shade in light mode; dark mode keeps Nuxt UI's default (400).
+ */
+:root {
+  --ui-primary: var(--ui-color-primary-700);
+}
+.dark {
+  --ui-primary: var(--ui-color-primary-400);
+}
+
+/* We render our own clear button. */
+input[type='search']::-webkit-search-cancel-button {
+  appearance: none;
+}

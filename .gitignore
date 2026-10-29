@@ -1,0 +1,28 @@
+# Nuxt
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node
+node_modules
+*.log*
+
+# Tests
+test-results
+playwright-report
+lighthouse/
+.playwright-mcp/
+
+# Env / misc
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea
+.vercel
+
+# Recruitment brief (not part of the app)
+zadanie-frontend-developer.md

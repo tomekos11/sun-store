@@ -37,7 +37,7 @@
         color="primary"
         variant="subtle"
         size="md"
-        class="font-semibold tabular-nums"
+        class="font-semibold tabular-nums text-(--ui-color-primary-800) dark:text-(--ui-color-primary-300)"
       />
       <UBadge
         v-if="showCategory"
